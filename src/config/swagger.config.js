@@ -4,13 +4,14 @@ const swaggerUi = require("swagger-ui-express");
 function SwaggerConfig(app) {
   const swaggerDocument = swaggerJSDoc({
     swaggerDefinition: {
+      openapi: "3.0.1", 
       info: {
         title: "divar",
         description: "NODEJS training",
         version: "1.0.0",
       },
     },
-    apis: [],
+    apis: [process.cwd() + "/src/modules/**/*.swagger.js"],
   });
 
   const swagger = swaggerUi.setup(swaggerDocument, {});
