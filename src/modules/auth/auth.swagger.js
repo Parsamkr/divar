@@ -16,6 +16,16 @@
  *              properties:
  *                  mobile:
  *                      type: string
+ *          CheckOTP:
+ *              type: object
+ *              required:
+ *                  -   mobile
+ *                  -   code
+ *              properties:
+ *                  mobile:
+ *                      type: string
+ *                  code:
+ *                      type: string
  */
 
 /**
@@ -23,7 +33,7 @@
  *
  * /auth/send-otp:
  *  post:
- *      summary: login with one time password in this end-point
+ *      summary: login with one time password
  *      tags:
  *          -   Auth
  *      requestBody:
@@ -37,4 +47,29 @@
  *      responses:
  *          200:
  *              description: success
+ *          500:
+ *              description: internalServerError
+ */
+
+/**
+ * @swagger
+ *
+ * /auth/check-otp:
+ *  post:
+ *      summary: check the code for logging in 
+ *      tags:
+ *          -   Auth
+ *      requestBody:
+ *          content:
+ *              application/x-www-form-urlencoded:
+ *                  schema:
+ *                      $ref: "#/components/schemas/CheckOTP"
+ *              application/json:
+ *                  schema:
+ *                      $ref: "#/components/schemas/CheckOTP"
+ *      responses:
+ *          200:
+ *              description: success
+ *          500:
+ *              description: internalServerError
  */

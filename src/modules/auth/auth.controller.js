@@ -10,9 +10,13 @@ class authController {
   }
   async sendOTP(req, res, next) {
     try {
+      require("crypto").randomBytes(48, function (err, buffer) {
+        var token = buffer.toString("hex");
+        console.log(token);
+      });
       const { mobile } = req.body;
       await this.#service.sendOTP(mobile);
-      return { message: authMessage.sendOtpSuccessfully };
+      return res.json({ message: authMessage.sendOtpSuccessfully });
     } catch (error) {
       next(error);
     }
@@ -20,6 +24,9 @@ class authController {
 
   async checkOTP(req, res, next) {
     try {
+      const { mobile, code } = req.body;
+      const token = await this.#service.checkOTP(mobile, code);
+      return res.json({ message: authMessage.loginSuccessfully, token });
     } catch (error) {
       next(error);
     }
