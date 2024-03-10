@@ -56,7 +56,7 @@
  *
  * /auth/check-otp:
  *  post:
- *      summary: check the code for logging in 
+ *      summary: check the code for logging in
  *      tags:
  *          -   Auth
  *      requestBody:
@@ -67,6 +67,21 @@
  *              application/json:
  *                  schema:
  *                      $ref: "#/components/schemas/CheckOTP"
+ *      responses:
+ *          200:
+ *              description: success
+ *          500:
+ *              description: internalServerError
+ */
+
+/**
+ * @swagger
+ *
+ * /auth/logout:
+ *  get:
+ *      summary: log out user
+ *      tags:
+ *          -   Auth
  *      responses:
  *          200:
  *              description: success

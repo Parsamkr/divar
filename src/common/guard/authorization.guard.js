@@ -2,12 +2,13 @@ const createHttpError = require("http-errors");
 const authrizationMessage = require("../messages/auth.message");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../../modules/user/user.model");
+const { AccessToken } = require("../constant/cookie.enum");
 
 require("dotenv").config();
 
 const authorization = async (req, res, next) => {
   try {
-    const token = req?.cookies?.access_token;
+    const token = req?.cookies?.[AccessToken];
     if (!token) {
       throw new createHttpError.Unauthorized(authrizationMessage.login);
     }
