@@ -63,3 +63,22 @@
  *          500:
  *              description: internalServerError
  */
+
+/**
+ * @swagger
+ *
+ * /category/{id}:
+ *  delete:
+ *      summary: delete category by id
+ *      tags:
+ *          -   Category
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: success
+ *          500:
+ *              description: internalServerError
+ */
