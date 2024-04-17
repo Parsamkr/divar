@@ -47,7 +47,10 @@ class categoryService {
     await this.#optionModel.deleteMany({ category: id }).then(async () => {
       await this.#model.deleteOne({ _id: id });
     });
-
+    await this.#model.updateMany(
+      { parent: id },
+      { $unset: { parent: "" }, $set: { parents: [] } }
+    );
     return true;
   }
 

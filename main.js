@@ -1,11 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const SwaggerConfig = require("./src/config/swagger.config");
-const mainRouter = require("./src/app.route");
+const mainRouter = require("./src/app.routes");
 const notFoundHandler = require("./src/common/exception/not-found.handler");
 const allExceptionHandler = require("./src/common/exception/all-exception.handler");
 const cookieParser = require("cookie-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
+const moment = require("jalali-moment");
+const methodOverride = require("method-override");
 dotenv.config();
 
 async function main() {
@@ -17,9 +19,15 @@ async function main() {
   app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
   app.use(express.static("public"));
   app.use(expressEjsLayouts);
+  app.use(methodOverride("_method"));
   app.set("view engine", "ejs");
-  app.set("layout", "./layouts/panel");
+  app.set("layout extractScripts", true);
+  app.set("layout extractStyles", true);
+  app.set("layout", "./layouts/panel/main.ejs");
   app.use(mainRouter);
+  // moment ra dar locals save mikonim ke dar ejs etefade konim
+  app.locals.moment = moment;
+
   SwaggerConfig(app);
   notFoundHandler(app);
   allExceptionHandler(app);

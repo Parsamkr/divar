@@ -4,7 +4,7 @@ const swaggerUi = require("swagger-ui-express");
 function SwaggerConfig(app) {
   const swaggerDocument = swaggerJSDoc({
     swaggerDefinition: {
-      openapi: "3.0.1", 
+      openapi: "3.0.1",
       info: {
         title: "divar",
         description: "NODEJS training",
@@ -15,7 +15,7 @@ function SwaggerConfig(app) {
   });
 
   const swagger = swaggerUi.setup(swaggerDocument, {});
-  app.use("/", swaggerUi.serve, swagger);
+  app.use("/swagger", swaggerUi.serve, swagger);
 }
 
 module.exports = SwaggerConfig;
