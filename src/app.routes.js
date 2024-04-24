@@ -12,7 +12,7 @@ mainRouter.use("/user", userRouter);
 mainRouter.use("/category", categoryRouter);
 mainRouter.use("/option", optionRouter);
 mainRouter.use("/post", postRouter);
-mainRouter.get("/", postController.postList);
+mainRouter.get("/", postController.postList.bind(postController));
 // mainRouter.get("/", (req, res) => {
 //   res.locals.layout = "./layouts/website/main.ejs";
 //   res.render("./pages/home/index.ejs");

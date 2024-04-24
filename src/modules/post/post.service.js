@@ -55,8 +55,8 @@ class postService {
       query["$or"] = [{ title: search }, { description: search }];
     }
     console.log(query);
-    const posts = await this.#model.find(query, {}, { sort: { _id: -1 } });
-    return posts;
+    // const posts = await this.#model.find(query, {}, { sort: { _id: -1 } });
+    return this.#model.find(query, {}, { sort: { _id: -1 } }).cursor();
   }
 
   async remove(postId) {

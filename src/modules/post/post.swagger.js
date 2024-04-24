@@ -12,26 +12,36 @@
  *          createPost:
  *              type: object
  *              required:
- *                  -   name
- *                  -   slug
- *                  -   icon
+ *                  -   lat
+ *                  -   lng
+ *                  -   category
+ *                  -   title_post
+ *                  -   description
  *              properties:
- *                  name:
+ *                  lat:
  *                      type: string
- *                  slug:
+ *                  lng:
  *                      type: string
- *                  icon:
+ *                  category:
  *                      type: string
- *                  parent:
+ *                  title_post:
  *                      type: string
- * */
+ *                  description:
+ *                      type: string
+ *                  amount:
+ *                      type: string
+ *                  images:
+ *                      type: files
+ *                  options:
+ *                      type: json
+ */
 
 /**
  * @swagger
  *
- * /category:
+ * /post/create:
  *  post:
- *      summary: create new category
+ *      summary: create new post
  *      tags:
  *          -   Post
  *      requestBody:
@@ -52,9 +62,9 @@
 /**
  * @swagger
  *
- * /category:
+ * /post/my:
  *  get:
- *      summary: get all categories
+ *      summary: get my posts
  *      tags:
  *          -   Post
  *      responses:
@@ -67,9 +77,28 @@
 /**
  * @swagger
  *
- * /category/{id}:
+ * /post/delete/{id}:
  *  delete:
- *      summary: delete category by id
+ *      summary: delete post by id
+ *      tags:
+ *          -   Post
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: success
+ *          500:
+ *              description: internalServerError
+ */
+
+/**
+ * @swagger
+ *
+ * /post/{id}:
+ *  get:
+ *      summary: get post by id
  *      tags:
  *          -   Post
  *      parameters:

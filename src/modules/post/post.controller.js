@@ -51,6 +51,7 @@ class postController {
 
   async create(req, res, next) {
     try {
+      console.log(req.body, req.files);
       const userId = req.user._id;
       const images = req?.files?.map((image) => image?.path?.slice(7));
       const {
@@ -148,11 +149,38 @@ class postController {
 
   async postList(req, res, next) {
     try {
-      const query = req.query;
-      const posts = await this.#service.findAll(query);
+      // const query = req.query;
+      // const posts = await this.#service.findAll(query);
 
-      res.locals.layout = "./layouts/website/main.ejs";
-      res.render("./pages/home/index.ejs", { posts });
+      // res.locals.layout = "./layouts/website/main.ejs";
+      // res.render("./pages/home/index.ejs", { posts });
+
+      const options = req.query; // Assuming options are passed as query parameters
+      const cursor = await this.#service.findAll(options);
+
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+
+      // Keep the connection open by sending a comment every 20 seconds
+      const keepAliveInterval = setInterval(() => {
+        res.write(": keep-alive\n\n");
+      }, 20000);
+
+      cursor.on("data", (doc) => {
+        res.write(`data: ${JSON.stringify(doc)}\n\n`);
+      });
+
+      cursor.on("end", () => {
+        clearInterval(keepAliveInterval);
+        res.end();
+      });
+
+      // Handle client closing connection
+      req.on("close", () => {
+        clearInterval(keepAliveInterval);
+        res.end();
+      });
     } catch (error) {
       next(error);
     }
