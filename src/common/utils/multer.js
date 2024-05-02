@@ -5,7 +5,7 @@ const createHttpError = require("http-errors");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    fs.mkdirSync(path.join(process.cwd() + "public" + "upload"), {
+    fs.mkdirSync(path.join(process.cwd(), "public", "upload"), {
       recursive: true,
     });
     cb(null, "public/upload");
